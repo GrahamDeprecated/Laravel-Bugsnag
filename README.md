@@ -1,6 +1,6 @@
 # Alt Three Bugsnag
 
-Alt Three Bugsnag is a a Bugsnag bridge for Laravel 5.
+A Bugsnag bridge for Laravel 5.
 
 
 ## Installation
