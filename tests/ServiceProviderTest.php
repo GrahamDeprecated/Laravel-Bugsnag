@@ -34,12 +34,14 @@ class ServiceProviderTest extends AbstractPackageTestCase
     public function testRepositoryFactoryIsInjectable()
     {
         $this->app->config->set('bugsnag.key', 'qwertyuiop');
+
         $this->assertIsInjectable(Bugsnag::class);
     }
 
     public function testLoggerIsInjectable()
     {
         $this->app->config->set('bugsnag.key', 'qwertyuiop');
+
         $this->assertIsInjectable(Logger::class);
     }
 }
