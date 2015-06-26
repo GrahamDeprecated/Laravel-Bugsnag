@@ -20,7 +20,7 @@
     "require": {
         "php": ">=5.5.9",
         "bugsnag/bugsnag": "~2.5",
-        "graham-campbell/logger-core": "~1.0",
+        "altthree/logger": "~1.0",
         "illuminate/contracts": "5.1.*",
         "illuminate/support": "5.1.*",
         "psr/log": "~1.0"

@@ -11,9 +11,9 @@
 
 namespace AltThree\Bugsnag;
 
+use AltThree\Logger\LoggerTrait;
 use Bugsnag_Client as Bugsnag;
 use Exception;
-use GrahamCampbell\LoggerCore\LoggerTrait;
 use Psr\Log\LoggerInterface;
 
 /**
