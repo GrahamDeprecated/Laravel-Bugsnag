@@ -76,17 +76,14 @@ class Logger implements LoggerInterface
     protected function getSeverity($level)
     {
         switch ($level) {
-            case 'emergency':
-            case 'alert':
-            case 'critical':
-            case 'error':
-                return 'error';
             case 'warning':
             case 'notice':
                 return 'warning';
             case 'info':
             case 'debug':
                 return 'info';
+            default:
+                return 'error';
         }
     }
 }
