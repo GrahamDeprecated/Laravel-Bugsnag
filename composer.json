@@ -1,5 +1,5 @@
 {
-    "name": "altthree/bugsnag",
+    "name": "alt-three/bugsnag",
     "description": "A Bugsnag Bridge For Laravel 5",
     "keywords": ["bugsnag", "bridge", "Bugsnag", "Alt Three"],
     "license": "MIT",
@@ -20,7 +20,7 @@
     "require": {
         "php": ">=5.5.9",
         "bugsnag/bugsnag": "~2.5",
-        "altthree/logger": "~1.0",
+        "alt-three/logger": "~1.0",
         "illuminate/contracts": "5.1.*",
         "illuminate/support": "5.1.*",
         "psr/log": "~1.0"
