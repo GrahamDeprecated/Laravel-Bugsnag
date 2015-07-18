@@ -74,10 +74,6 @@ class BugsnagServiceProvider extends ServiceProvider
             $bugsnag->setBatchSending(false);
             $bugsnag->setReleaseStage($app->environment());
 
-            if ($app->auth->check()) {
-                $bugsnag->setUser(['id' => $app->auth->user()->getAuthIdentifier()]);
-            }
-
             return $bugsnag;
         });
 
@@ -92,7 +88,16 @@ class BugsnagServiceProvider extends ServiceProvider
     protected function registerLogger()
     {
         $this->app->singleton('bugsnag.logger', function ($app) {
-            return new Logger($app['bugsnag']);
+            $bugsnag = $app['bugsnag'];
+            $user = function () use ($app) {
+                if ($user = $app->auth->user()) {
+                    return $user->toArray();
+                }
+
+                return [];
+            };
+
+            return new Logger($bugsnag, $user);
         });
 
         $this->app->alias('bugsnag.logger', Logger::class);

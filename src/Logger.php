@@ -13,6 +13,7 @@ namespace AltThree\Bugsnag;
 
 use AltThree\Logger\LoggerTrait;
 use Bugsnag_Client as Bugsnag;
+use Closure;
 use Exception;
 use Psr\Log\LoggerInterface;
 
@@ -33,15 +34,24 @@ class Logger implements LoggerInterface
     protected $bugsnag;
 
     /**
+     * The current user resolver.
+     *
+     * @var \Closure
+     */
+    protected $user;
+
+    /**
      * Create a new logger instance.
      *
      * @param \Bugsnag_Client $bugsnag
+     * @param \Closure        $user
      *
      * @return void
      */
-    public function __construct(Bugsnag $bugsnag)
+    public function __construct(Bugsnag $bugsnag, Closure $user)
     {
         $this->bugsnag = $bugsnag;
+        $this->user = $user;
     }
 
     /**
@@ -57,6 +67,8 @@ class Logger implements LoggerInterface
     {
         $severity = $this->getSeverity($level);
 
+        $this->bugsnag->setUser($this->resolveCurrentUser());
+
         if ($message instanceof Exception) {
             $this->bugsnag->notifyException($message, array_except($context, ['title']), $severity);
         } else {
@@ -64,6 +76,18 @@ class Logger implements LoggerInterface
             $title = array_get($context, 'title', str_limit((string) $msg));
             $this->bugsnag->notifyError($title, $msg, array_except($context, ['title']), $severity);
         }
+    }
+
+    /**
+     * Resolve the current user.
+     *
+     * @return array
+     */
+    protected function resolveCurrentUser()
+    {
+        $resolver = $this->user;
+
+        return $resolver();
     }
 
     /**
