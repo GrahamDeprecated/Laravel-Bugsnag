@@ -20,6 +20,11 @@ Once Alt Three Bugsnag is installed, you need to register the service provider. 
 * `'AltThree\Bugsnag\BugsnagServiceProvider'`
 
 
+## Security
+
+If you discover a security vulnerability within this package, please e-mail us at support@alt-three.com. All security vulnerabilities will be promptly addressed.
+
+
 ## License
 
 Alt Three Bugsnag is licensed under [The MIT License (MIT)](LICENSE).
