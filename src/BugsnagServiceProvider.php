@@ -72,7 +72,7 @@ class BugsnagServiceProvider extends ServiceProvider
      */
     protected function registerBugsnag()
     {
-        $this->app->singleton('bugsnag', function ($app) {
+        $this->app->singleton('bugsnag', function (Application $app) {
             $bugsnag = new Bugsnag($app->config->get('bugsnag.key'));
 
             $bugsnag->setStripPath($app['path.base']);
@@ -94,7 +94,7 @@ class BugsnagServiceProvider extends ServiceProvider
      */
     protected function registerLogger()
     {
-        $this->app->singleton('bugsnag.logger', function ($app) {
+        $this->app->singleton('bugsnag.logger', function (Application $app) {
             $bugsnag = $app['bugsnag'];
             $user = function () use ($app) {
                 if ($user = $app->auth->user()) {
