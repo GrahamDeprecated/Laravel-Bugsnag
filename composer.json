@@ -4,7 +4,7 @@
     "keywords": ["bugsnag", "bridge", "Bugsnag", "Alt Three"],
     "license": "MIT",
     "authors": [
-        {
+        { 
             "name": "James Brooks",
             "email": "james@alt-three.com"
         },
