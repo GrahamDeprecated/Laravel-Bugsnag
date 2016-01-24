@@ -12,7 +12,7 @@
 namespace AltThree\Bugsnag;
 
 use Bugsnag_Client as Bugsnag;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
@@ -31,24 +31,22 @@ class BugsnagServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->setupConfig($this->app);
+        $this->setupConfig();
     }
 
     /**
      * Setup the config.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     *
      * @return void
      */
-    protected function setupConfig(Application $app)
+    protected function setupConfig()
     {
         $source = realpath(__DIR__.'/../config/bugsnag.php');
 
-        if ($app instanceof LaravelApplication && $app->runningInConsole()) {
+        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
             $this->publishes([$source => config_path('bugsnag.php')]);
-        } elseif ($app instanceof LumenApplication) {
-            $app->configure('bugsnag');
+        } elseif ($this->app instanceof LumenApplication) {
+            $this->app->configure('bugsnag');
         }
 
         $this->mergeConfigFrom($source, 'bugsnag');
@@ -72,7 +70,7 @@ class BugsnagServiceProvider extends ServiceProvider
      */
     protected function registerBugsnag()
     {
-        $this->app->singleton('bugsnag', function (Application $app) {
+        $this->app->singleton('bugsnag', function (Container $app) {
             $bugsnag = new Bugsnag($app->config->get('bugsnag.key'));
 
             $bugsnag->setStripPath($app['path.base']);
@@ -94,7 +92,7 @@ class BugsnagServiceProvider extends ServiceProvider
      */
     protected function registerLogger()
     {
-        $this->app->singleton('bugsnag.logger', function (Application $app) {
+        $this->app->singleton('bugsnag.logger', function (Container $app) {
             $bugsnag = $app['bugsnag'];
             $user = function () use ($app) {
                 if ($user = $app->auth->user()) {
