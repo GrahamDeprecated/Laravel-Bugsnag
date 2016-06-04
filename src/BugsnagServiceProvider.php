@@ -95,7 +95,7 @@ class BugsnagServiceProvider extends ServiceProvider
         $this->app->singleton('bugsnag.logger', function (Container $app) {
             $bugsnag = $app['bugsnag'];
             $user = function () use ($app) {
-                if ($user = $app->auth->user()) {
+                if ($app->config->get('bugsnag.user', true) && ($user = $app->auth->user())) {
                     return $user->toArray();
                 }
 
