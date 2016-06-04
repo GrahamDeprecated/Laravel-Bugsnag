@@ -73,8 +73,8 @@ class BugsnagServiceProvider extends ServiceProvider
         $this->app->singleton('bugsnag', function (Container $app) {
             $bugsnag = new Bugsnag($app->config->get('bugsnag.key'));
 
-            $bugsnag->setStripPath($app['path.base']);
-            $bugsnag->setProjectRoot($app['path']);
+            $bugsnag->setStripPath($app->basePath());
+            $bugsnag->setProjectRoot($app->path());
             $bugsnag->setAutoNotify(false);
             $bugsnag->setBatchSending(false);
             $bugsnag->setReleaseStage($app->environment());
