@@ -78,6 +78,11 @@ class BugsnagServiceProvider extends ServiceProvider
             $bugsnag->setAutoNotify(false);
             $bugsnag->setBatchSending(false);
             $bugsnag->setReleaseStage($app->environment());
+            $bugsnag->setNotifier([
+                'name'    => 'Alt Three Bugsnag PHP',
+                'version' => '1',
+                'url'     => 'https://alt-three.com',
+            ]);
 
             return $bugsnag;
         });
